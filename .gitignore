@@ -1,5 +1,6 @@
-# OS generated files #
-######################
+# ----------------------
+# OS Generated Files
+# ----------------------
 .DS_Store
 .DS_Store?
 ._*
@@ -7,7 +8,45 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-/.idea/.gitignore
-/.idea/blank-shopify-theme.iml
-/.idea/modules.xml
-/.idea/vcs.xml
+
+# ----------------------
+# Node Modules
+# ----------------------
+node_modules/
+
+# ----------------------
+# Shopify CLI
+# ----------------------
+.shopify/
+
+# ----------------------
+# IDE (JetBrains / VSCode)
+# ----------------------
+.idea/
+.vscode/
+
+# ----------------------
+# Logs
+# ----------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ----------------------
+# Environment Files
+# ----------------------
+.env
+.env.local
+.env.*.local
+
+# ----------------------
+# Build / Cache
+# ----------------------
+dist/
+build/
+.cache/
+
+# ----------------------
+# Misc
+# ----------------------
+*.log
