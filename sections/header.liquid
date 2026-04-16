@@ -1,0 +1,56 @@
+<header class="p-10 bg-black text-white ease-in-out duration-300 hover:bg-gray-400 hover:text-black">
+  <div class="flex justify-between">
+    <nav class="flex flex-wrap flex-1 gap-4 max-w-1/3">
+      <ul>
+        <li>
+          <div class="relative group cursor-pointer w-fit">
+            <p class="uppercase text-sm font-bold">
+              supplements
+            </p>
+            <span class="absolute -top-1 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  
+      <span class="flex-1">{% render 'logo-svg' %}</span>
+   
+    <div class="icons flex gap-4 flex-1 justify-end items-center">
+      <!--search icon and drawer -->
+      <span 
+        class="cursor-pointer hover:-translate-y-1 hover:py-2 duration-300">
+        {% render 'icon-search' %}
+      </span>
+
+      <span>{% render 'icon-lock' %}</span>
+      <span 
+        class="cart-icon cursor-pointer hover:-translate-y-1 hover:py-2 duration-300">
+        {% render 'icon-cart' %}
+      </span>
+    </div>
+  </div>
+    <div class="
+      cart-drawer-overlay pointer-events-none fixed inset-0
+      bg-black/50 opacity-0 z-9">    
+    
+    </div>
+
+  <cart-drawer aria-hidden="true"
+    class=" translate-x-full transform transition-transform ease-in-out
+            duration-300 fixed top-0 bottom-0 z-10 w-96 
+            right-0 bg-white text-black
+          ">
+    <div class="h-full w-full">
+      <header>
+        <div class="flex justify-between p-10 ">
+          <h2 class="">cart</h2>
+          <span class="icon-close cursor-pointer">
+            {% render 'icon-close' %}
+            </span>
+        </div>
+      </header>
+    </div>
+  </cart-drawer>
+  <script src="{{ 'component-cart-drawer.js' | asset_url }}"></script>
+</header>
+

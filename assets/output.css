@@ -159,3 +159,7 @@
   }
 }
 @layer utilities;
+html {
+  /* fixed space for scrollbar to avoid reflow */
+  scrollbar-gutter: stable;
+}
