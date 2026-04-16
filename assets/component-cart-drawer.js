@@ -15,9 +15,14 @@ class CartDrawer extends HTMLElement {
 
   connectedCallback() {
     this.cartIcon?.addEventListener("click", this.handleOpen)
+    document.addEventListener("openDrawer", ()=>{
+      this.handleOpen()
+      
+    })
     this.overlay?.addEventListener("click", this.handleClose)
     this.closeIcon?.addEventListener("click", this.handleClose)
     document.addEventListener("keydown", this.handleKeyDown)
+
   }
 
   disconnectedCallback() {
