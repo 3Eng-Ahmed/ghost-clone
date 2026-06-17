@@ -1,0 +1,104 @@
+<!--cart items wrapper-->
+  {% if cart.item_count > 0 %}
+    
+    <ul >
+      
+      <div class="flex flex-col gap-8">
+        {% for item in cart.items %} 
+          <!--cart item-->
+          <li>            
+            <cart-item data-key="{{ item.key }}" data-index="{{ forloop.index0 }}" class="relative">
+              <div class="loading pointer-events-none absolute inset-0 bg-white/50 opacity-0 z-8">
+                <div class="h-full w-full flex justify-center items-center">
+                  <span class="h-5 w-5 rounded-full animate-spin  border-red-400 border-2 border-t-transparent">
+
+                  </span>
+                </div>
+              
+              </div>
+              <div class="flex justify-between border-white border-4 ">
+                <div class="flex gap-4 flex-1">
+                  <div class="h-20 bg-gray-200">
+                    <img src="{{ item.image |  image_url: width:200  }}" alt="{{ item.title }}" class="h-full w-full object-cover">
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <!-- product details-->
+                    <h2 class="text-sm font-black uppercase">
+                        {{ item.title }}
+                    </h2>
+                    {% for variant in item.variant %}
+                        <p class="text-sm text-gray-500">
+                          {{ variant.title }}
+                        </p>
+                      
+                    {% endfor %}
+                    <!-- item Quantity -->
+                    <div class="grid grid-cols-3 w-16 border-gray-300 border">
+                        <span 
+                          data-quantity="{{ item.quantity |  minus: 1 }}"
+                          class="reduce-item cursor-pointer flex flex-1 justify-center items-center"
+                        >
+                          -
+                        </span>
+                      
+                          <input class="block border-none text-center w-full mx-1 py-1 text-sm" type="number" value="{{ item.quantity }}" disabled min="1">
+                        
+                        
+                        <span data-quantity="{{ item.quantity |  plus: 1 }}" class="add-item cursor-pointer flex flex-1 justify-center items-center">
+                          +
+                        </span>
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="flex flex-col justify-between items-end">
+                  
+                    <span data-quantity="0" class="remove-item">
+                      {% render 'icon-close' %}
+                    </span>
+                  
+                  <div class="text-xs font-bold">{{ item.price |  money }}</div>
+                </div>
+              </div>
+            </cart-item>
+
+            
+          </li>
+          
+          
+        {% endfor %}        
+      </div>
+    </ul>
+    <form action="{{ routes.cart_url }}" method="post">
+      <div class="border-t border-gray-300 py-5 px-4">
+        <div class="flex justify-between">
+          <div class="flex gap-2">
+            <h2 class="font-bold">Subtotal</h2>
+            <span class="text-gray-500 font-extrabold">({{ cart.item_count }} items)</span>
+          </div>
+
+          <span class="text-end font-bold">
+            {{ cart.total_price | money }}
+          </span>
+        </div>
+        <p class="text-xs text-gray-600 mt-4">
+          Shipping and taxes will be calculated at checkout.
+        </p>
+        <button type="submit" name="checkout" class="w-full mt-4 bg-black text-white py-4 font-extrabold uppercase cursor-pointer items-center justify-center flex gap-2">
+          <span>
+            {% render 'icon-lock' %}
+          </span>
+          Secure Checkout
+        </button>
+      </div>      
+    </form>
+
+    
+  {% else %}
+    <div class="flex flex-col gap-4 text-center font-bold mt-10 text-xs">
+      <p>Your Cart is Empty</p>
+      <a href="">Shop Now</a>
+    </div>
+   
+  {% endif %}
