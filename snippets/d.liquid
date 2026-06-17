@@ -1,0 +1,61 @@
+<div class="mobile-menu-drawer fixed inset-y-0 left-0 z-50 w-64 bg-white text-black shadow-xl p-6 overflow-y-auto">
+  
+  <button class="mb-8 close-menu-btn">{% render 'icon-close' %}</button>
+
+  <ul class="flex flex-col gap-4">
+    {% for block in blocks %}
+      {% if block.type == 'link' %}
+        <li>
+          <a href="{{ block.settings.url }}" class="uppercase text-lg font-bold block py-2 border-b border-gray-100">
+            {{ block.settings.title }}
+          </a>
+        </li>
+      {% elsif block.type == 'dropdown' %}
+        <li class="group flex items-center h-full" data-action="dropdown">
+  
+  <button class="px-4 py-6 uppercase font-bold hover:text-primary transition-all">
+    THE BRAND
+  </button>
+
+  <div class="fixed left-0 w-full top-[--header-height] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 shadow-2xl border-t">
+    
+    <div class="bg-white container mx-auto grid grid-cols-4 gap-8 p-10">
+      
+      <div class="flex flex-col space-y-4">
+        <h3 class="text-gray-900 font-bold border-b pb-2 uppercase tracking-wider">Explore</h3>
+        <ul class="flex flex-col space-y-2 text-sm text-gray-600">
+          <li><a href="#" class="hover:text-black transition">Our Mission</a></li>
+          <li><a href="#" class="hover:text-black transition">Meet The Fam</a></li>
+          <li><a href="#" class="hover:text-black transition">Global Impact</a></li>
+        </ul>
+      </div>
+
+      <div class="group/item relative overflow-hidden rounded-lg aspect-[3/4] bg-gray-100">
+        <img src="https://via.placeholder.com/300x400" alt="Product" class="object-cover w-full h-full group-hover/item:scale-105 transition-transform duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4">
+          <span class="text-white font-bold">NEW COLLECTION</span>
+          <a href="#" class="text-white/80 text-xs underline mt-1">Shop Now</a>
+        </div>
+      </div>
+
+      <div class="group/item relative overflow-hidden rounded-lg aspect-[3/4] bg-gray-100">
+        <img src="https://via.placeholder.com/300x400" alt="Product" class="object-cover w-full h-full group-hover/item:scale-105 transition-transform duration-500">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4">
+          <span class="text-white font-bold">GHOST® ENERGY</span>
+          <a href="#" class="text-white/80 text-xs underline mt-1">Explore Flavors</a>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-center bg-primaryLight p-6 rounded-lg border-2 border-dashed border-primaryDark/20 text-center">
+        <h4 class="font-black text-xl text-primaryDark italic">JOIN THE SQUAD</h4>
+        <p class="text-sm text-gray-600 mt-2">Sign up for exclusive drops and early access.</p>
+        <button class="mt-4 bg-primaryDark text-white py-2 px-4 rounded font-bold hover:bg-black transition">SIGN UP</button>
+      </div>
+
+    </div>
+  </div>
+</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>

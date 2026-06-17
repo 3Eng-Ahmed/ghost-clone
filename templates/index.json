@@ -2,9 +2,15 @@
   "sections": {
     "main": {
       "type": "index-section"
+    },
+    "hero":{
+      "type":"hero-banner"
     }
+
   },
   "order": [
+    "hero",
     "main"
+    
   ]
 }

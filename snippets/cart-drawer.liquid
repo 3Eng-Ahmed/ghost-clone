@@ -1,0 +1,23 @@
+<div class="
+  cart-drawer-overlay pointer-events-none fixed inset-0
+  bg-black/50 opacity-0 z-9
+">
+</div>
+
+<cart-drawer aria-hidden="true"
+  class=" translate-x-full transform transition-transform
+    ease-in-out duration-300 fixed top-0 bottom-0 z-10
+    w-full md:w-96 right-0 bg-white text-black
+  ">
+  <div class="h-full w-full">
+    <header>
+      <div class="flex justify-between p-10 ">
+        <h2 class="">cart</h2>
+        <span class="icon-close cursor-pointer">
+          {% render 'icon-close' %}
+          </span>
+      </div>
+    </header>
+    {% render 'cart-content' %}
+  </div>
+</cart-drawer>

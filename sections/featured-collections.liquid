@@ -1,0 +1,80 @@
+<div class="grid grid-cols-2 md:grid-cols-4 gap-1 py-1 h-[60vh] w-full">
+  {% for block in section.blocks %}
+    <div class="relative text-white group h-full w-full overflow-hidden" {{ block.shopify_attributes }}>
+      
+      {% comment %} Image Rendering {% endcomment %}
+      {% if block.settings.image != blank %}
+        {{ block.settings.image | image_url: width: 1000 | image_tag: class: 'w-full h-full object-cover', loading: 'lazy', alt: block.settings.title }}
+      {% else %}
+        {{ 'collection-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-neutral-800' }}
+      {% endif %}
+
+      {% comment %} Overlay & Content {% endcomment %}
+      <div class="absolute inset-0 pb-10 hover:bg-linear-to-t  flex flex-col justify-end items-center from-black/60 via-black/10 to-transparent transition-opacity cursor-pointer duration-300 px-4">
+        <div class=" flex flex-col justify-end items-center">
+            <h2 class="font-extrabold md:text-3xl text-sm text-center uppercase tracking-wider mb-2">
+            {{ block.settings.title }}
+          </h2>
+          <a class="uppercase text-sm font-bold tracking-widest border-b-2 border-transparent group-hover:border-white transition-colors duration-300" href="{{ block.settings.link }}">
+            Shop Now
+          </a>
+        </div>
+        
+      </div>
+      
+      {% comment %} 
+        We make the whole block clickable by stretching a pseudo-element link over it, 
+        which is great for UX on mobile and desktop.
+      {% endcomment %}
+      {% if block.settings.link != blank %}
+        <a href="{{ block.settings.link }}" class="absolute inset-0 z-10">
+          <span class="sr-only">Shop {{ block.settings.title }}</span>
+        </a>
+      {% endif %}
+      
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Featured Collections Grid",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Collection Name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Collection Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collections Grid",
+      "blocks": [
+        { "type": "collection_card" },
+        { "type": "collection_card" },
+        { "type": "collection_card" },
+        { "type": "collection_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
