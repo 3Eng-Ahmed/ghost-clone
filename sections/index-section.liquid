@@ -1,0 +1,29 @@
+<div class="bg-black h-screen flex flex-col items-center justify-center  text-white">
+  
+  {% comment %} <button aria-autocomplete="list" class="bg-white text-black group">
+    hover me
+    <div aria-hidden="true" class="fixed top-30 left-0 right-0 h-1/2 opacity-0 bg-white  group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"> 
+    
+      <a href="#main-footer">Footer</a>
+    </div>
+  </button> {% endcomment %}
+
+    <accordion-menu       
+      class="bg-black border-white border-4 py-4 px-8 w-80 transition duration-300 ease-in-out">
+      <header class="acc-header cursor-pointer">
+        <div class="w-full flex justify-between">
+          <h2>head</h2>
+          <span class="rotate-270 chev-icon">
+            {% render 'icon-chevron-ac' %}
+
+          </span>
+        </div>
+      </header>
+      <div
+        ria-hidden="true" 
+        class="acc-body h-0 opacity-0 
+      ">
+
+      </div>
+    </accordion-menu>
+</div>

@@ -18,6 +18,8 @@
     border: 0 solid;
   }
   html, :host {
+      /* fixed space for scrollbar to avoid reflow */
+  scrollbar-gutter: stable;
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     tab-size: 4;
@@ -25,6 +27,9 @@
     font-feature-settings: var(--default-font-feature-settings, normal);
     font-variation-settings: var(--default-font-variation-settings, normal);
     -webkit-tap-highlight-color: transparent;
+  }
+  body{
+    font-family: inherit ;
   }
   hr {
     height: 0;

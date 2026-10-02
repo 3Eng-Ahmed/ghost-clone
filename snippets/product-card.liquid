@@ -1,0 +1,185 @@
+
+<div class="product-card my-5">
+  <product-card data-details="{{ product | json |  escape }}" data-variants ="{{ product.variants | json | escape }}" class="">
+    {% assign selected_variant = product.selected_or_first_available_variant %}
+    <div class=" ">
+
+      {% comment %} image and media {% endcomment %}
+       <div class="aspect-4/5  relative ">
+        <div class="hidden absolute left-2 bottom-2 md:flex ">
+          <form method="post" action="{{ routes.cart_add_url }}">
+            <input type="hidden" name="id" value="{{selected_variant.id }}">
+            <button class="bg-black text-white flex gap-4 py-1.5 px-2" name="add" type="submit">add to cart</button>
+          </form>
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              {% if option.name == 'Size' %}
+                <select class="text-black bg-white" name="" id="">
+                  {% for value in option.values %}
+                    <option name="variant-id" data-id="{{ value.id |  escape }}" 
+                      value="{{ value.name }}" 
+                      {% if value.selected  %}
+                        selected
+                      {% endif %}>
+                      {{ value.name }}
+                    </option>
+                  
+                  {% endfor %}
+                </select>
+              {% endif %}
+              
+            {% endfor %}
+            
+          {% endunless %}
+
+        </div>
+        <a href="{{ selected_variant.url }}">
+         <img class="product-card-image h-full w-full object-cover" src="{{ product.featured_image | image_url: width: 350 }}" loading="lazy" alt="{{ product.title }}">
+        </a>
+       </div>
+       {% comment %} product details {% endcomment %}
+       <div class="flex flex-col gap-2 mt-4 text-xs md:px-0 px-4">
+        <a href="{{ selected_variant.url }}">
+          <h3 class="font-bold">{{ product.title }}</h3>
+        </a>
+        <div class="">
+          {% unless product.has_only_default_variant %}
+            {% for option in selected_variant.options %}
+              <span > {{ option.name }}</span>
+            {% endfor %}            
+          {% endunless %}
+
+        </div>
+        <div class="flex gap-4">
+          {% if product.price < product.compare_at_price %}
+            <span class="line-through text-red-400">{{ product.compare_at_price |  money }}</span>
+            <span class="">{{ product.price |  money }}</span>
+          {% else %}
+            <span class="">{{ product.price |  money }}</span>
+          {% endif %}
+        </div>
+        <div class="flex">
+          {% comment %} Color variants wrapper {% endcomment %}
+
+          {% comment %} 
+            to make this works properly You should Add either Featured Image or
+            add metafield called Swatch
+          
+          {% endcomment %}
+          {% unless product.has_only_default_variant %}
+            <div class="hello" data-value=""></div>
+            {% for option in product.options_with_values %}
+              
+              {% if option.name == 'Color' %}
+                
+                <fieldset class="product-option product-option--color">
+                  <legend>{{ option.name }}</legend>
+
+                  <div class="color-swatches">
+                    {% for value in option.values %}
+                      
+                      {% assign color_handle = value | handleize %}
+                      {% assign variant = product.variants | where: 'option1', value | first %}
+                      {% assign variant_image = variant.featured_image | image_url: width: 600 %}
+                      {% assign variant_id = variant.id %}
+
+                      <label class="color-swatch" for="color-{{ forloop.index0 }}-{{ variant_id }}-{{ section.id }}">                        
+                      <input
+                        data-image="{{ variant_image }}"
+                        data-vaiant-id="{{ variant_id | escape }}"
+                        data-name="{{ value.name }}"
+                        type="radio"
+                        name="options-{{ section.id }}-{{ option.name }}"
+                        id="color-{{ forloop.index0 }}-{{ variant_id }}-{{ section.id }}"
+                        value="{{ value }}"
+                        {% if option.selected_value == value %}checked{% endif %}
+                        aria-label="{{ value }}"
+                      >
+                        
+                        {%- comment -%}
+                          If value looks like a hex or rgb string use it directly.
+                          Otherwise try the color name (downcased). If neither is a valid CSS color,
+                          consider storing a hex or image in a metafield and use that instead.
+                        {%- endcomment -%}
+                        {% assign swatch_meta = variant.metafields.custom.swatch %}
+
+                        {% if swatch_meta %}
+                          <span class="swatch" style="background-color: {{ swatch_meta }};" title="{{ value }}"></span>
+
+                        {% elsif value contains '#' or value contains 'rgb' or value contains 'RGB' %}
+                          <span class="swatch" style="background-color: {{ value }};" title="{{ value }}"></span>
+
+                        {% else %}
+                          <span class="swatch" style="background-color: {{ value | downcase }};" title="{{ value }}"></span>
+                        {% endif %}
+
+                        <span class="swatch-label visually-hidden">{{ value }}</span>
+                      </label>
+                    {% endfor %}
+                  </div>
+
+                </fieldset>
+              {% endif %}
+            {% endfor %}
+          {% endunless %}
+          <style>
+            .product-option--color .color-swatches {
+              display: flex;
+              gap: 10px;
+              flex-wrap: wrap;
+            }
+
+            .color-swatch {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+            }
+
+            .color-swatch input {
+              display: none;
+            }
+
+            .color-swatch .swatch {
+              width: 28px;
+              height: 28px;
+              border-radius: 50%;
+              display: inline-block;
+              cursor: pointer;
+              border: 2px solid #ddd;
+              transition: transform 0.15s ease, border-color 0.15s ease;
+              box-sizing: border-box;
+            }
+
+            
+            .color-swatch input:checked + .swatch {
+              border: 2px solid #000;
+              transform: scale(1.15);
+            }
+
+            
+            .color-swatch input:focus + .swatch {
+              outline: 3px solid rgba(0,0,0,0.12);
+              outline-offset: 3px;
+            }
+
+            
+            .color-swatch .swatch:hover {
+              transform: scale(1.1);
+            }
+
+            /* للنص الوصفي المخبأ (accessibility) */
+            .visually-hidden {
+              position: absolute !important;
+              height: 1px; width: 1px;
+              overflow: hidden;
+              clip: rect(1px, 1px, 1px, 1px);
+              white-space: nowrap;
+            }
+          </style>
+        </div>
+       </div>
+    </div>
+  </product-card>
+</div>
+

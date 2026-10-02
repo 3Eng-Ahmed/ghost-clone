@@ -1,0 +1,61 @@
+<header 
+  id="main-header" 
+  class="fixed top-0 inset-x-0 z-50 p-10 text-white  transition-all duration-300 ease-in-out bg-transparent hover:bg-white hover:text-black">
+
+  <div class="flex justify-between">
+    <nav class="hidden md:flex flex-wrap flex-1 gap-4 max-w-1/3">
+      <ul>
+        <li>
+          <div class="relative group cursor-pointer w-fit">
+            <p class="uppercase text-sm font-bold">
+              supplements
+            </p>
+            <span class="absolute -top-1 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="md:hidden">
+      <span class="ham-icon">{% render 'icon-ham' %}</span>
+    </nav>
+  
+      <span class="flex-1">{% render 'logo-svg' %}</span>
+   
+    <div class="icons flex gap-4 flex-1 justify-end items-center">
+      <!--search icon and drawer -->
+      <span 
+        class="cursor-pointer hover:-translate-y-1 hover:py-2 duration-300">
+        {% render 'icon-search' %}
+      </span>
+
+      <span>{% render 'icon-lock' %}</span>
+      <span 
+        class="cart-icon cursor-pointer hover:-translate-y-1 hover:py-2 duration-300">
+        {% render 'icon-cart' %}
+      </span>
+    </div>
+  </div>
+  {% render 'cart-drawer' %}
+  {% render 'hamburger-menu' %}
+  <!-- -->
+
+
+
+  <script src="{{ 'component-cart-drawer.js' | asset_url }}"></script>
+  <script src="{{ 'header.js' | asset_url }}"></script>
+  <script src="{{ 'component-hamburger-menu.js' | asset_url }}"></script>
+  <script src="{{ 'accordion-menu.js' | asset_url }}"></script>
+  <script defer src="{{ 'cart.js' | asset_url }}"></script>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+
+    
+  ]
+}
+{% endschema %}
+

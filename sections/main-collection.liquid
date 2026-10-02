@@ -1,0 +1,42 @@
+
+<div class="flex px-10 py-4  mt-24">
+  <div class="hidden md:block w-52"></div>
+  <div class="flex items-center justify-center">
+    <h1 class="font-black text-4xl">
+      {{ collection.title }}
+    </h1>
+  </div>
+
+</div>
+
+<div class="flex flex-col md:flex-row gap-4">
+  <div class="w-52 max-w-[280px] px-6 sm:px-8 py-6">
+    <div class="grid grid-cols-1 gap-y-2 font-semibold text-xs text-gray-600">
+      <div class="py-4">
+        <span class="filtering-open-icon uppercase font-bold text-lg text-black cursor-pointer">
+          Filters + 
+        </span>
+      </div>
+      {% for item in collections %}
+
+        <div class="">
+          <span class="uppercase hover:text-red-400 cursor-pointer">
+            <a href="{{ item.url }}">
+              {{ item.title }}
+            </a>
+            
+          </span>
+        </div>
+      {% endfor %}
+    </div>  
+  </div>
+  <div class="flex-1">
+    <div class="grid grid-cols-2 gap-2 gap-y-4 md:grid-cols-3 lg:grid-cols-5">
+      {% for product in collection.products %}         
+        {% render 'product-card' , product:product %}
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+{% render 'filtering-menu' %}
